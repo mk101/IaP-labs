@@ -47,10 +47,13 @@ int unite(int* a, int lenA, int* b, int lenB, int* res) {
 
 // ====Lab 12====
 
-void transpose(int** a, int n, int** res) {
+void transpose(int** a, int n) {
+    int k = 0;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            res[j][i] = a[i][j];
+        for (int j = i+1; j < n; j++) {
+            k = a[i][j];
+            a[i][j] = a[j][i];
+            a[j][i] = k;
         }
     }
 }
@@ -58,7 +61,7 @@ void transpose(int** a, int n, int** res) {
 int main() {
     int *a, *b, *res;
     int lenA, lenB, lenRes;
-    int **matrix, **matrixT;
+    int** matrix;
     int n;
     printf("====Lab 5====\n");
     printf("Input array length: ");
@@ -95,26 +98,18 @@ int main() {
     for (int i = 0; i < n; i++) {
         matrix[i] = (int*)malloc(n*sizeof(int));
     }
-    matrixT = (int**)malloc(n*sizeof(int*));
-    for (int i = 0; i < n; i++) {
-        matrixT[i] = (int*)malloc(n*sizeof(int));
-    }
 
     printf("Input n: ");
     scanInt(&n, 1, 100);
     printf("Input matrix %d*%d\n", n, n);
     scanIntMatrix(matrix, n, n);
-    transpose(matrix, n, matrixT);
+    transpose(matrix, n);
     printf("Transposed matrix:\n");
-    printIntMatrix(matrixT, n, n);
+    printIntMatrix(matrix, n, n);
 
     for (int i = 0; i < n; i++) {
         free(matrix[i]);
     }
     free(matrix);
-    for (int i = 0; i < n; i++) {
-        free(matrixT[i]);
-    }
-    free(matrixT);
     return 0;
 }
