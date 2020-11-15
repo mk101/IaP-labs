@@ -1,5 +1,4 @@
-#pragma once
-
+#include "io.h"
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -61,5 +60,21 @@ void fillIntArray(int* a, int length, int start, int end) {
 
 	for (int i = 0; i < length; i++) {
 		a[i] = (int)((end - start) * ((double)rand() / RAND_MAX) + start);
+	}
+}
+
+void scanIntMatrix(int** a, int m, int n) {
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			scanf("%d", &a[i][j]);
+		}
+	}
+}
+void printIntMatrix(int** a, int m, int n) {
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			printf("%d ", a[i][j]);
+		}
+		printf("\n");
 	}
 }
