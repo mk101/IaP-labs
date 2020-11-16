@@ -94,13 +94,12 @@ int main() {
     free(b);
     free(res);
     printf("====Lab 12====\n");
+    printf("Input n: ");
+    scanInt(&n, 1, 100);
     matrix = (int**)malloc(n*sizeof(int*));
     for (int i = 0; i < n; i++) {
         matrix[i] = (int*)malloc(n*sizeof(int));
     }
-
-    printf("Input n: ");
-    scanInt(&n, 1, 100);
     printf("Input matrix %d*%d\n", n, n);
     scanIntMatrix(matrix, n, n);
     transpose(matrix, n);
