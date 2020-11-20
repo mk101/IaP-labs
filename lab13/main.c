@@ -14,11 +14,13 @@ bool isPalindrome(char* word) {
 }
 
 int main() {
-    char* words;
-    char* cur;
+    char words[1024];
+    char* cur = NULL;
 
     printf("Input words: ");
     fgets(words, 1024, stdin);
+
+    words[strlen(words)-1] = ' '; // '\n' -> ' '
 
     cur = strtok(words, " ");
     while (cur) {
