@@ -12,6 +12,11 @@ private:
 	size_t m;
 	std::vector<MapType> map;
 
+	std::random_device rd;
+	std::mt19937 mt;
+	std::uniform_int_distribution<size_t> distributionX;
+	std::uniform_int_distribution<size_t> distributionY;
+
 	void ClearPlayer();
 public:
 	Map(size_t N, size_t M);

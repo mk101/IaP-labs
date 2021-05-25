@@ -8,7 +8,12 @@ void Map::ClearPlayer() {
 	}
 }
 
-Map::Map(size_t N, size_t M) : n(N), m(M), map(N*M, MapType::Empty) {}
+Map::Map(size_t N, size_t M) 
+	: n(N), m(M), 
+	map(N*M, MapType::Empty),
+	mt(rd()), 
+	distributionX(0, m - 1),
+	distributionY(0, n - 1) {}
 
 const MapType& Map::At(size_t y, size_t x) const {
 	return map.at(y * n + x);
@@ -19,13 +24,8 @@ MapType& Map::At(size_t y, size_t x) {
 }
 
 void Map::AddFood() {
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_int_distribution<size_t> distributionX(0, m);
-	std::uniform_int_distribution<size_t> distributionY(0, n);
-
 	MapCeil food = { distributionX(mt), distributionY(mt) };
-	while (At(food.y, food.x) != MapType::Empty) 	{
+	while (At(food.y, food.x) != MapType::Empty) {
 		MapCeil food = { distributionX(mt), distributionY(mt) };
 	}
 
@@ -62,15 +62,15 @@ void Map::UpdatePlayer(const Player& player) {
 }
 
 void Map::Draw() const {
-	for (int i = 0; i < m + 2; i++) {
+	for (size_t i = 0; i < m + 2; i++) {
 		std::wcout << L"-";
 	}
 
 	std::wcout << std::endl;
 
-	for (int i = 0; i < n; i++) {
+	for (size_t i = 0; i < n; i++) {
 		std::wcout << L"|";
-		for (int j = 0; j < m; j++) {
+		for (size_t j = 0; j < m; j++) {
 			switch (At(i, j)) {
 			case MapType::Empty:
 				std::wcout << L" ";
@@ -88,7 +88,7 @@ void Map::Draw() const {
 		}
 		std::wcout << L"|" << std::endl;
 	}
-	for (int i = 0; i < m + 2; i++) {
+	for (size_t i = 0; i < m + 2; i++) {
 		std::wcout << L"-";
 	}
 }
