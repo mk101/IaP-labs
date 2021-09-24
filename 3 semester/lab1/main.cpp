@@ -26,6 +26,7 @@ int main() {
 			<< "4.  Удалить элемент" << std::endl
 			<< "5.  Объединить множнство" << std::endl
 			<< "6.  Пересечь множество" << std::endl
+			<< "7.  Решето Эратосфена" << std::endl
 			<< "-1. Выйти" << std::endl
 			<< "Введите номер: ";
 		std::cin >> menuValue;
@@ -64,6 +65,25 @@ int main() {
 			sBuf = TSet(set->GetMaxPower());
 			std::cin >> sBuf;
 			*set = *set & sBuf;
+			break;
+		case 7:
+			std::cout << "Введите максимальное число: ";
+			std::cin >> menuValue;
+			
+			sBuf = TSet(menuValue + 1);
+			for (uint32_t m = 2; m <= menuValue; m++) {
+				sBuf.InsElem(m);
+			}
+			for (uint32_t m = 2; m * m <= menuValue; m++) {
+				if (sBuf.IsMember(m)) {
+					for (uint32_t k = 2 * m; k <= menuValue; k+= m) {
+						sBuf.DelElem(k);
+					}
+				}
+			}
+
+			std::cout << sBuf << std::endl << "Введите любое число чтобы продолжить: ";
+			std::cin >> menuValue;
 			break;
 		}
 	} while (menuValue != -1);
